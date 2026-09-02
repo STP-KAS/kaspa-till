@@ -1,0 +1,21 @@
+{{template "header" .}}
+<main>
+  <div class="kicker">Local ledger</div>
+  <h1>Orders in this process.</h1>
+  {{if not .Orders}}<p class="lede">None yet. Dies on restart. Not a chain.</p>{{end}}
+  {{if .Orders}}
+  <table>
+    <tr><th>#</th><th>item</th><th>kUSD reserved</th><th>KAS</th><th>paid</th></tr>
+    {{range .Orders}}
+    <tr>
+      <td>{{.ID}}</td>
+      <td>{{.Good.Title}}</td>
+      <td>{{.Quote.Display}}</td>
+      <td class="mono">{{.Quote.KASDueNow}}</td>
+      <td class="mono">{{.Paid}}</td>
+    </tr>
+    {{end}}
+  </table>
+  {{end}}
+</main>
+{{template "footer" .}}

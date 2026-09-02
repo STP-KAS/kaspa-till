@@ -1,0 +1,17 @@
+{{template "header" .}}
+<main>
+  <div class="kicker">Ticket</div>
+  <h1>Recorded.</h1>
+  {{range .Orders}}
+  <table>
+    <tr><th>order</th><td class="mono">#{{.ID}}</td></tr>
+    <tr><th>item</th><td>{{.Good.Title}}</td></tr>
+    <tr><th>reserved</th><td class="price">{{.Quote.Display}}</td></tr>
+    <tr><th>KAS posted</th><td class="mono">{{.Quote.KASDueNow}}</td></tr>
+    <tr><th>receipt</th><td class="mono">{{.Paid}}</td></tr>
+    <tr><th>note</th><td>{{.Note}}</td></tr>
+  </table>
+  {{end}}
+  <p><a class="btn ghost" href="/orders">All orders</a></p>
+</main>
+{{template "footer" .}}

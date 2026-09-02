@@ -1,0 +1,30 @@
+{{template "header" .}}
+<main>
+  {{if .Good}}
+  <div class="kicker">Invoice</div>
+  <h1>{{.Good.Title}}</h1>
+  <p class="lede">{{.Good.Blurb}}</p>
+  {{if .Quote}}
+  <table>
+    <tr><th>reserved kUSD</th><td class="price">{{.Quote.Display}}</td></tr>
+    <tr><th>status</th><td class="mono">{{.Quote.AssetStatus}}</td></tr>
+    <tr><th>KAS due today</th><td class="mono">{{.Quote.KASDueNow}} KAS ({{.Quote.SompiDueNow}} sompi)</td></tr>
+    <tr><th>merchant rate</th><td class="mono">{{.Quote.SompiPerUnit}} sompi / 1.00</td></tr>
+    <tr><th>live scheme</th><td class="mono">{{.Quote.SchemeLive}}</td></tr>
+    <tr><th>reserved scheme</th><td class="mono">{{.Quote.SchemeReserved}} (not live)</td></tr>
+  </table>
+  <p class="lede">{{.Quote.Note}}</p>
+  {{end}}
+  {{if .Error}}<p class="bad">{{.Error}}</p>{{end}}
+  <form class="row" action="/buy" method="post">
+    <input type="hidden" name="item" value="{{.Good.ID}}" />
+    <div>
+      <label>KAS payment receipt id</label>
+      <input name="payment" placeholder="txid — HTTP layer only" />
+    </div>
+    <button class="btn" type="submit">Settle in KAS</button>
+  </form>
+  <p class="sub">You cannot pay kUSD yet. GET /api/order?item={{.Good.ID}} returns 402 with both schemes.</p>
+  {{end}}
+</main>
+{{template "footer" .}}
