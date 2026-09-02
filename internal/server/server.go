@@ -79,6 +79,12 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("/safety", func(w http.ResponseWriter, r *http.Request) {
 		s.render(w, "safety.html", page{Title: "Safety · Kaspa Till", Active: "safety"})
 	})
+	mux.HandleFunc("/idea", func(w http.ResponseWriter, r *http.Request) {
+		s.render(w, "idea.html", page{Title: "Idea · Kaspa Till", Active: "idea"})
+	})
+	mux.HandleFunc("/explain", func(w http.ResponseWriter, r *http.Request) {
+		s.render(w, "idea.html", page{Title: "Idea · Kaspa Till", Active: "idea"})
+	})
 	mux.HandleFunc("/feedback", s.feedbackPage)
 	mux.HandleFunc("/api/feedback", s.apiFeedback)
 	mux.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
