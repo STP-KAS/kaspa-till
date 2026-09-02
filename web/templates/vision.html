@@ -1,0 +1,22 @@
+{{template "header" .}}
+<main>
+  <div class="kicker">Vision · stables on Kaspa L1</div>
+  <h1>Land the dollar on L1, or do not pretend.</h1>
+  <p class="lede">This dApp is built as if a native Kaspa stable will exist. It does not wait on an L2. It does not bill in grams. The shelf tags are already in kUSD so a later asset swap does not rewrite the catalog.</p>
+  <h2>What “landing” means</h2>
+  <table>
+    <tr><th>Path</th><th>Still needs</th><th>This till</th></tr>
+    <tr><td>KCC-20 issued on L1 by a reserved minter</td><td>Capital (fiat or T-bills) + issuer honesty + wallet recognition</td><td>scheme <span class="mono">kaspa-l1-stable</span> already on the 402</td></tr>
+    <tr><td>Overcollateral vault in KAS (DAI-like)</td><td>Capital (KAS locked) + a price oracle + liquidation</td><td>Same unit field; different issuer</td></tr>
+    <tr><td>Protocol fee-stable (miners take kUSD)</td><td>A KIP. Not an app.</td><td>Out of reach here</td></tr>
+    <tr><td>Algorithmic mint/burn</td><td>A story</td><td>Refused</td></tr>
+    <tr><td>Bridge from another chain / L2</td><td>L2</td><td>Refused</td></tr>
+  </table>
+  <h2>Until then</h2>
+  <p class="lede">Invoices keep a 6-decimal integer. Settlement is KAS at the sign on the counter. KasInvoice.sil (if compiled) stores both the KAS due and the reserved micro-amount so a future spend path can replace quotedSompi with a KCC-20 input.</p>
+  <pre>GET  /api/order?item=cup     → 402
+     accepts[0] kaspa / KAS / live
+     accepts[1] kaspa-l1-stable / kUSD / not live</pre>
+  <p class="lede">Sister dApp for fee-stability without a dollar: Gramlane on :8081 (Work Credits).</p>
+</main>
+{{template "footer" .}}

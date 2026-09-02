@@ -1,0 +1,15 @@
+{{template "header" .}}
+<main>
+  <div class="kicker">Claims</div>
+  <h1>What this dApp is not.</h1>
+  <table>
+    <tr><th>Claim</th><th></th><th>Meaning</th></tr>
+    <tr><td>kUSD is live on Kaspa</td><td class="bad">wrong</td><td>Reserved unit of account. Status {{.Rate}} sompi is a merchant sign, not a minted token.</td></tr>
+    <tr><td>This uses an L2 dollar</td><td class="bad">wrong</td><td>L2 is out of scope. No bridged USDC.</td></tr>
+    <tr><td>This uses Work Credits / grams</td><td class="bad">wrong</td><td>That is Gramlane on :8081. This till is the dollar-shaped product.</td></tr>
+    <tr><td>Merchant rate is the market</td><td class="bad">wrong</td><td>The merchant typed it. No oracle in this process.</td></tr>
+    <tr><td>A Kaspa L1 stable can land later</td><td>vision</td><td>KCC-20 + capitalized issuer, or overcollateral KAS vault + oracle. Still needs capital. See /vision.</td></tr>
+    <tr><td>Covenants can print $1 without reserves</td><td class="bad">wrong</td><td>That is UST. This dApp will not do it.</td></tr>
+  </table>
+</main>
+{{template "footer" .}}

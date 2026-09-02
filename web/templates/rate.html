@@ -1,0 +1,15 @@
+{{template "header" .}}
+<main>
+  <div class="kicker">Merchant sign</div>
+  <h1>KAS per reserved 1.00</h1>
+  <p class="lede">This is not an oracle and not a peg. It is the number on the till so a customer can pay KAS <em>today</em> while the shelf stays in kUSD. Default demo is 10,000,000 sompi (0.10 KAS) per 1.00.</p>
+  {{if .Error}}<p class="bad">{{.Error}}</p>{{end}}
+  <form class="row" action="/rate" method="post">
+    <div>
+      <label>sompi per 1.00 kUSD</label>
+      <input name="sompiPerUnit" value="{{.Rate}}" inputmode="numeric" />
+    </div>
+    <button class="btn" type="submit">Post rate</button>
+  </form>
+</main>
+{{template "footer" .}}

@@ -1,0 +1,18 @@
+{{template "header" .}}
+<main>
+  <div class="kicker">Merchant shelf</div>
+  <h1>Priced for a stable that is not here yet.</h1>
+  {{if .Error}}<p class="bad">{{.Error}}</p>{{end}}
+  <p class="lede">Merchant rate now: <span class="mono">{{.Rate}}</span> sompi per 1.00 kUSD (demo default 0.10 KAS). Change it on <a href="/rate">/rate</a>. That number is a sign on the counter, not Circle.</p>
+  <table>
+    <tr><th>Item</th><th>Reserved unit</th><th></th></tr>
+    {{range .Goods}}
+    <tr>
+      <td><strong>{{.Title}}</strong><div class="lede" style="font-size:16px;margin:0">{{.Blurb}}</div></td>
+      <td class="price">{{.Tag}}</td>
+      <td><a href="/item/{{.ID}}">buy</a></td>
+    </tr>
+    {{end}}
+  </table>
+</main>
+{{template "footer" .}}

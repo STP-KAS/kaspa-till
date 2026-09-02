@@ -1,0 +1,22 @@
+pragma silverscript ^0.1.0;
+
+// Kaspa Till — L1 invoice. quotedSompi is KAS due today.
+// reservedMicro is the catalog amount in a future L1 stable (6 decimals).
+// This script does not peg, does not read an oracle, and does not touch an L2.
+// When a KCC-20 stable exists, a new version should accept that asset
+// instead of quotedSompi.
+
+contract KasInvoice(pubkey merchant, pubkey payer, int quotedSompi, int reservedMicro, temporal timeout) {
+    entry settle(sig payerSig) {
+        require(checkSig(payerSig, payer));
+        byte[36] merch = new ScriptPubKeyP2PK(merchant);
+        require(tx.outputs[0].scriptPubKey == byte[](merch));
+        require(tx.outputs[0].value == quotedSompi);
+        require(reservedMicro > 0);
+    }
+
+    entry cancel(sig payerSig) {
+        require(checkSig(payerSig, payer));
+        require(tx.time >= timeout);
+    }
+}
