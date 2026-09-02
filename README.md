@@ -13,10 +13,19 @@ Sister dApp (grams / Work Credits): `C:\Users\<user>\Documents\kaspa\superapp` �
 ```powershell
 cd C:\Users\<user>\Documents\kaspa\superappstablesalternative
 go test ./...
-go run ./cmd/kastill
+go build -o kastill.exe ./cmd/kastill
+.\kastill.exe
 ```
 
 http://localhost:8082
+
+If the browser says “localhost refused to connect”:
+
+```powershell
+powershell -File C:\Users\<user>\Documents\kaspa\start-local.ps1
+```
+
+Index: [STP-KAS/project-delusional](https://github.com/STP-KAS/project-delusional).
 
 | Path | What |
 | --- | --- |
@@ -25,7 +34,9 @@ http://localhost:8082
 | `/vision` | How a stable lands on L1 (KCC-20 or vault). L2 refused. |
 | `/rate` | Merchant sign (sompi per 1.00). Not an oracle. |
 | `/api/order?item=cup` | 402 with `kaspa` (live) and `kaspa-l1-stable` (not live) |
-| `/wallets` | Same Kaspa wallet catalog as KNS/Gramlane |
+| `/wallets` | Same Kaspa wallet catalog. Connect + log out. |
+| `/safety` | Never DMs, never seeds. |
+| `/feedback` | Stored on this PC under `Documents\kaspa\feedback\kastill` |
 
 `KasInvoice.sil` compiled with official silverc v1-rc1 (KAS due now + reserved micro-amount in the constructor). Not deployed.
 
