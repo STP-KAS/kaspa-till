@@ -38,6 +38,7 @@ Index: [STP-KAS/project-delusional](https://github.com/STP-KAS/project-delusiona
 | `/api/order?item=cup` | 402 with `kaspa` (live) and `kaspa-l1-stable` (not live) |
 | `/wallets` | Same Kaspa wallet catalog. Connect + log out. |
 | `/safety` | Never DMs, never seeds. |
+| `/234` | Why we do not `readInputState` a kUSD UTXO. Amount 1 → vault 264. |
 | `/feedback` | Stored on this PC under `Documents\kaspa\feedback\kastill` |
 
 `KasInvoice.sil` compiled with official silverc v1-rc1 (KAS due now + reserved micro-amount in the constructor). Not deployed.

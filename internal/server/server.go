@@ -12,6 +12,7 @@ import (
 	"sync"
 
 	"kastill/internal/feedback"
+	"kastill/internal/framing"
 	"kastill/internal/shop"
 	"kastill/internal/stable"
 	"kastill/internal/wallets"
@@ -19,32 +20,33 @@ import (
 )
 
 type Server struct {
-	Addr  string
-	T     *template.Template
-	Board *stable.Board
-	mu    sync.Mutex
+	Addr   string
+	T      *template.Template
+	Board  *stable.Board
+	mu     sync.Mutex
 	Orders []Order
 }
 
 type Order struct {
-	ID      int           `json:"id"`
-	Good    shop.Good     `json:"good"`
-	Quote   stable.Quote  `json:"quote"`
-	Paid    string        `json:"paid"`
-	Note    string        `json:"note"`
+	ID    int          `json:"id"`
+	Good  shop.Good    `json:"good"`
+	Quote stable.Quote `json:"quote"`
+	Paid  string       `json:"paid"`
+	Note  string       `json:"note"`
 }
 
 type page struct {
-	Title  string
-	Active string
-	Error  string
-	Query  string
-	Goods  []shop.Good
-	Good   *shop.Good
-	Quote  *stable.Quote
+	Title   string
+	Active  string
+	Error   string
+	Query   string
+	Goods   []shop.Good
+	Good    *shop.Good
+	Quote   *stable.Quote
 	Rate    uint64
 	Orders  []Order
 	Wallets []wallets.Wallet
+	Framing *framing.View
 }
 
 func New(addr string) (*Server, error) {
@@ -88,8 +90,19 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("/why", func(w http.ResponseWriter, r *http.Request) {
 		s.render(w, "why.html", page{Title: "Why · Kaspa Till", Active: "why"})
 	})
-	mux.HandleFunc("/234", func(w http.ResponseWriter, r *http.Request) {
-		s.render(w, "framing.html", page{Title: "#234 · Kaspa Till", Active: "why"})
+	mux.HandleFunc("/234", s.framingPage)
+	mux.HandleFunc("/framing", s.framingPage)
+	mux.HandleFunc("/api/framing", func(w http.ResponseWriter, r *http.Request) {
+		v := framing.Demo()
+		if hx := strings.TrimSpace(r.URL.Query().Get("hex")); hx != "" {
+			got, err := framing.DecodeHex(hx)
+			if err != nil {
+				writeJSON(w, 400, map[string]any{"ok": false, "error": err.Error()})
+				return
+			}
+			v.Custom = &got
+		}
+		writeJSON(w, 200, map[string]any{"ok": true, "data": v})
 	})
 	mux.HandleFunc("/feedback", s.feedbackPage)
 	mux.HandleFunc("/api/feedback", s.apiFeedback)
@@ -121,6 +134,22 @@ func (s *Server) render(w http.ResponseWriter, name string, p page) {
 		log.Println("template", name, err)
 		http.Error(w, err.Error(), 500)
 	}
+}
+
+func (s *Server) framingPage(w http.ResponseWriter, r *http.Request) {
+	v := framing.Demo()
+	p := page{Title: "#234 · Kaspa Till", Active: "234", Framing: &v}
+	if hx := strings.TrimSpace(r.FormValue("hex")); hx != "" {
+		p.Query = hx
+		got, err := framing.DecodeHex(hx)
+		if err != nil {
+			p.Error = err.Error()
+		} else {
+			v.Custom = &got
+			p.Framing = &v
+		}
+	}
+	s.render(w, "framing.html", p)
 }
 
 func (s *Server) home(w http.ResponseWriter, r *http.Request) {
