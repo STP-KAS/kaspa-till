@@ -1,8 +1,33 @@
 {{template "header" .}}
 <main>
-  <div class="kicker">silverscript#234</div>
-  <h1>Why this till does not inspect a kUSD UTXO.</h1>
-  <p class="lede">Accepting a future L1 stable by <span class="mono">readInputState</span>ing the token is the attack in <a href="https://github.com/kaspanet/silverscript/pull/234">PR 234</a>: same 42 bytes, vault sees 2^59, UTXO holds 1. Closed, not merged. This till invoices reserved kUSD in JSON and settles KAS. It does not decode a foreign token. Diagram: <a href="http://127.0.0.1:8080/234">KNS /234</a></p>
-  <p><a class="btn" href="http://127.0.0.1:8080/234">Open the 42-byte example</a></p>
+  <div class="kicker">silverscript#234 · concrete · closed unmerged</div>
+  <h1>This till does not inspect a kUSD UTXO.</h1>
+  <p class="lede">Accepting a future L1 stable by <span class="mono">readInputState</span>ing the token is the attack in <a href="https://github.com/kaspanet/silverscript/pull/234">PR 234</a>. Same 42 bytes: amount 1, vault reads 264. Closed, not merged. KasInvoice quotes reserved micro in the constructor and settles KAS. It does not decode a foreign token.</p>
+
+  <table>
+    <tr><th></th><th>Real amount</th><th>Vault reads</th><th>Pin (not in v1-rc1)</th></tr>
+    <tr><td>canonical, amount=1</td><td>{{.Framing.Canonical.RealAmount}}</td><td>{{.Framing.Canonical.VaultAmount}}</td><td>accept</td></tr>
+    <tr><td>attack, amount=1</td><td>{{.Framing.Attack.RealAmount}}</td><td class="bad">{{.Framing.Attack.VaultAmount}}</td><td class="bad">{{.Framing.Attack.PinError}}</td></tr>
+    <tr><td>attack, amount=2^51</td><td>{{.Framing.HugeAttack.RealAmount}}</td><td class="bad">{{.Framing.HugeAttack.VaultAmount}}</td><td class="bad">reject</td></tr>
+  </table>
+
+  <h2>Hostile 42 bytes</h2>
+  <div class="bytes">
+    {{range .Framing.Attack.Cells}}
+    <div class="byte {{.Class}}"><span class="i">{{.I}}</span><span>{{.Hex}}</span></div>
+    {{end}}
+  </div>
+  <pre>{{.Framing.Attack.HexSpaced}}</pre>
+
+  <h2>Paste hex — decode as the vault</h2>
+  {{if .Error}}<p class="bad">{{.Error}}</p>{{end}}
+  <form class="row" method="get" action="/234">
+    <input name="hex" value="{{if .Query}}{{.Query}}{{else}}{{.Framing.Attack.Hex}}{{end}}" spellcheck="false" />
+    <button class="btn" type="submit">Decode</button>
+  </form>
+  {{if .Framing.Custom}}
+  <p class="tiny">pasted {{.Framing.Custom.Total}} bytes · vault {{.Framing.Custom.VaultAmount}} · pin {{if .Framing.Custom.PinOK}}ok{{else}}{{.Framing.Custom.PinError}}{{end}}</p>
+  {{end}}
+  <p class="tiny">JSON: <a href="/api/framing">/api/framing</a>. Same bytes on KNS: <a href="http://127.0.0.1:8080/234">:8080/234</a>.</p>
 </main>
 {{template "footer" .}}

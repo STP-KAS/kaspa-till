@@ -72,4 +72,18 @@ textarea {
   background: #fff; padding: 10px 12px; font: inherit;
 }
 .chip { display: inline-block; border: 1px solid var(--line); padding: 2px 8px; font-size: 11px; font-family: "IBM Plex Mono", monospace; }
+.bytes { display: flex; flex-wrap: wrap; gap: 4px; margin: 12px 0 18px; }
+.byte {
+  width: 52px; min-height: 52px;
+  font-family: "IBM Plex Mono", monospace; font-size: 12px;
+  border: 1px solid var(--line); border-radius: 4px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: #fff;
+}
+.byte .i { color: var(--muted); font-size: 9px; }
+.byte.hdr { border-color: var(--gold); color: #8a6a12; }
+.byte.amt { background: rgba(228,195,106,.35); }
+.byte.own { background: rgba(90,70,20,.08); }
+.byte.win { box-shadow: inset 0 0 0 2px var(--danger); }
+.byte.slide { background: rgba(163,59,44,.18); color: var(--danger); }
 @media (max-width: 800px) { main { padding: 24px 14px 56px; } h1 { font-size: 42px; } }
