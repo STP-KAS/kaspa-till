@@ -29,6 +29,8 @@ Index: [STP-KAS/project-delusional](https://github.com/STP-KAS/project-delusiona
 
 | Path | What |
 | --- | --- |
+| `/idea` | What this URL is |
+| `/why` | Beyond the chain: shelf in money, chain not yet |
 | `/shop` | Shelf in reserved kUSD |
 | `/item/cup` | Dual invoice: kUSD reserved + KAS due now |
 | `/vision` | How a stable lands on L1 (KCC-20 or vault). L2 refused. |
