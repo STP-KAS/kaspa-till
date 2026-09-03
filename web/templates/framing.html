@@ -1,0 +1,8 @@
+{{template "header" .}}
+<main>
+  <div class="kicker">silverscript#234</div>
+  <h1>Why this till does not inspect a kUSD UTXO.</h1>
+  <p class="lede">Accepting a future L1 stable by <span class="mono">readInputState</span>ing the token is the attack in <a href="https://github.com/kaspanet/silverscript/pull/234">PR 234</a>: same 42 bytes, vault sees 2^59, UTXO holds 1. Closed, not merged. This till invoices reserved kUSD in JSON and settles KAS. It does not decode a foreign token. Diagram: <a href="http://127.0.0.1:8080/234">KNS /234</a></p>
+  <p><a class="btn" href="http://127.0.0.1:8080/234">Open the 42-byte example</a></p>
+</main>
+{{template "footer" .}}
