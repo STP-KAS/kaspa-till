@@ -48,3 +48,12 @@ Index: [STP-KAS/project-delusional](https://github.com/STP-KAS/project-delusiona
 `KasInvoice.sil` compiled with official silverc v1-rc1 (KAS due now + reserved micro-amount in the constructor). Not deployed.
 
 Read [VISION.md](VISION.md) next.
+
+---
+
+> **Standard disclaimer.** This GitHub, not the topic above.
+>
+> Intentions are good; thought process is questionable. STP remains delusional. Si vis pacem, para bellum.
+>
+> Intern at https://sixpack.wtf/  
+> X: https://x.com/StppStp · GitHub: https://github.com/STP-KAS
