@@ -45,7 +45,7 @@ Index: [STP-KAS/project-delusional](https://github.com/STP-KAS/project-delusiona
 | `/234` | Why we do not `readInputState` a kUSD UTXO. Amount 1 → vault 264. |
 | `/feedback` | Stored on this PC under `Documents\kaspa\feedback\kastill` |
 
-`KasInvoice.sil` compiled with official silverc v1-rc1 (KAS due now + reserved micro-amount in the constructor). Not deployed.
+`KasInvoice.sil` was compiled with silverc v1-rc1 (KAS due now + reserved micro-amount in the constructor). Not deployed. The compiler pin is now [v1.0.0](https://github.com/kaspanet/silverscript/releases/tag/v1.0.0) (`3ed9733`). Do not compile new work against v1-rc1.
 
 Read [VISION.md](VISION.md) next.
 
